@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import * as Phaser from 'phaser';
+import Phaser from 'phaser';
 
 class MainScene extends Phaser.Scene {
   private player?: Phaser.Physics.Arcade.Sprite;
