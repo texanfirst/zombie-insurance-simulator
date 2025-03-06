@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zombie Apocalypse Insurance Simulator
+
+A fun and educational game that teaches insurance concepts through a zombie apocalypse scenario. Make strategic decisions about insurance coverage to protect your resources and survive the zombie waves!
+
+## Features
+
+- Multiple insurance types (Home Fortification, Medical, Supply Protection, Evacuation)
+- Different coverage tiers (Basic, Standard, Premium)
+- Dynamic scenarios with animated events
+- Resource management (money and health)
+- Wave-based gameplay
+- Performance rating system
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js (v18 or higher)
+- pnpm (v8 or higher)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [your-repository-url]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to play the game.
 
-## Learn More
+## How to Play
 
-To learn more about Next.js, take a look at the following resources:
+1. Start with $10,000 and 100 health points
+2. Each wave, choose insurance policies to protect against potential threats
+3. Face random scenarios (zombie attacks, injuries, supply raids, evacuations)
+4. Survive 20 waves to win!
+5. Balance your resources - each health point is worth $50 in final scoring
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Insurance Types
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Home Fortification**: Protects against zombie break-ins
+- **Zombie Bite Treatment**: Medical coverage for injuries
+- **Supply Protection**: Guards against raiders
+- **Evacuation Coverage**: Ensures safe evacuation when needed
 
-## Deploy on Vercel
+## Built With
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Next.js](https://nextjs.org/)
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
