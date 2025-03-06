@@ -5,6 +5,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Disable server components since we're exporting static HTML
+  experimental: {
+    appDir: true,
+  }
 }
 
 module.exports = nextConfig 
