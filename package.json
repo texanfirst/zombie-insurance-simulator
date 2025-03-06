@@ -3,25 +3,28 @@
   "version": "1.0.0",
   "description": "A zombie apocalypse insurance simulator game",
   "private": true,
+  "homepage": "https://texanfirst.github.io/zombie-insurance-simulator",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build && next export",
+    "deploy": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy to gh-pages\" && git subtree push --prefix out origin gh-pages"
   },
   "dependencies": {
-    "next": "^15.2.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "next": "15.2.1",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.17.23",
-    "@types/react": "^19.0.10",
-    "@types/react-dom": "^19.0.4",
-    "typescript": "^5.8.2",
-    "tailwindcss": "^4.0.9",
-    "@tailwindcss/postcss": "^4.0.9",
-    "eslint": "^9.21.0",
-    "eslint-config-next": "^15.2.1"
+    "@types/node": "20.17.23",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
+    "typescript": "5.8.2",
+    "tailwindcss": "4.0.9",
+    "@tailwindcss/postcss": "4.0.9",
+    "eslint": "9.21.0",
+    "eslint-config-next": "15.2.1"
   }
 }
