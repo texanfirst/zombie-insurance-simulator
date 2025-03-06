@@ -26,7 +26,9 @@ class MainScene extends Phaser.Scene {
     }
 
     this.zombies = this.physics.add.group();
-    this.cursors = this.input.keyboard.createCursorKeys();
+    if (this.input && this.input.keyboard) {
+        this.cursors = this.input.keyboard.createCursorKeys();
+    }
 
     this.scoreText = this.add.text(16, 16, 'Score: 0', {
       fontSize: '32px',
