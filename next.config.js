@@ -1,14 +1,15 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production';
+const isVercel = process.env.VERCEL === '1';
+const isGitHubPages = !isVercel && process.env.NODE_ENV === 'production';
 
 const nextConfig = {
-  output: 'export',
-  basePath: isProd ? '/zombie-insurance-simulator' : '',
+  ...(isGitHubPages ? { output: 'export' } : {}),
+  basePath: isGitHubPages ? '/zombie-insurance-simulator' : '',
   images: {
     unoptimized: true,
   },
-  distDir: isProd ? 'out' : '.next',
+  distDir: isGitHubPages ? 'out' : '.next',
   trailingSlash: true,
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig
