@@ -1,12 +1,13 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
   output: 'export',
-  basePath: '/zombie-insurance-simulator',
+  basePath: isProd ? '/zombie-insurance-simulator' : '',
   images: {
     unoptimized: true,
   },
-  // Ensure static export works
-  distDir: 'out',
+  distDir: isProd ? 'out' : '.next',
   trailingSlash: true,
 }
 

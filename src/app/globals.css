@@ -1,26 +1,591 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════
+   ZOMBIE INSURANCE SIMULATOR
+   "Pulp Horror Comic Book" Design System
+   ═══════════════════════════════════════════════ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette */
+  --ink-black: #0a0a0a;
+  --panel-dark: #1a1a2e;
+  --panel-mid: #23233a;
+  --panel-light: #2d2d4a;
+  --parchment: #f1e4b3;
+  --parchment-dark: #d4c48a;
+
+  /* Comic colors */
+  --comic-red: #e63946;
+  --comic-red-glow: #ff4d5a;
+  --comic-green: #06d6a0;
+  --comic-green-glow: #0af5b8;
+  --comic-yellow: #ffd166;
+  --comic-purple: #9b5de5;
+  --comic-blue: #4cc9f0;
+  --comic-orange: #f77f00;
+
+  /* Functional */
+  --text-primary: #f1e4b3;
+  --text-secondary: #a8a0c0;
+  --text-muted: #6b6590;
+  --border-comic: 3px solid #f1e4b3;
+  --border-panel: 2px solid #3a3a5c;
+
+  /* Shadows */
+  --shadow-comic: 4px 4px 0px #000000;
+  --shadow-comic-sm: 2px 2px 0px #000000;
+  --shadow-glow-green: 0 0 20px rgba(6, 214, 160, 0.3);
+  --shadow-glow-red: 0 0 20px rgba(230, 57, 70, 0.3);
+
+  --background: #0a0a0a;
+  --foreground: #f1e4b3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-bitter);
+  --font-display: var(--font-bangers);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ink-black);
+  color: var(--text-primary);
+  font-family: var(--font-bitter, 'Bitter', Georgia, serif);
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════
+   HALFTONE PATTERN OVERLAY
+   ═══════════════════════════ */
+
+.halftone-bg {
+  position: relative;
+}
+
+.halftone-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(241, 228, 179, 0.03) 1px, transparent 1px);
+  background-size: 8px 8px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.halftone-dense::before {
+  background-image: radial-gradient(circle, rgba(241, 228, 179, 0.05) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* ═══════════════════════════
+   COMIC PANEL STYLES
+   ═══════════════════════════ */
+
+.comic-panel {
+  background: var(--panel-dark);
+  border: 3px solid var(--parchment);
+  box-shadow: var(--shadow-comic);
+  position: relative;
+}
+
+.comic-panel-inner {
+  background: var(--panel-mid);
+  border: 2px solid var(--panel-light);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.comic-panel-red {
+  border-color: var(--comic-red);
+  box-shadow: var(--shadow-comic), 0 0 15px rgba(230, 57, 70, 0.15);
+}
+
+.comic-panel-green {
+  border-color: var(--comic-green);
+  box-shadow: var(--shadow-comic), 0 0 15px rgba(6, 214, 160, 0.15);
+}
+
+.comic-panel-purple {
+  border-color: var(--comic-purple);
+  box-shadow: var(--shadow-comic), 0 0 15px rgba(155, 93, 229, 0.15);
+}
+
+.comic-panel-yellow {
+  border-color: var(--comic-yellow);
+  box-shadow: var(--shadow-comic), 0 0 15px rgba(255, 209, 102, 0.15);
+}
+
+.comic-panel-blue {
+  border-color: var(--comic-blue);
+  box-shadow: var(--shadow-comic), 0 0 15px rgba(76, 201, 240, 0.15);
+}
+
+/* ═══════════════════════════
+   COMIC TYPOGRAPHY
+   ═══════════════════════════ */
+
+.comic-title {
+  font-family: var(--font-bangers, 'Bangers', cursive);
+  letter-spacing: 0.05em;
+  text-shadow: 3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+  line-height: 1.1;
+}
+
+.comic-title-glow-green {
+  text-shadow: 3px 3px 0px #000, 0 0 30px rgba(6, 214, 160, 0.5), 0 0 60px rgba(6, 214, 160, 0.2);
+}
+
+.comic-title-glow-red {
+  text-shadow: 3px 3px 0px #000, 0 0 30px rgba(230, 57, 70, 0.5), 0 0 60px rgba(230, 57, 70, 0.2);
+}
+
+.comic-subtitle {
+  font-family: var(--font-bangers, 'Bangers', cursive);
+  letter-spacing: 0.03em;
+  text-shadow: 2px 2px 0px #000;
+}
+
+/* ═══════════════════════════
+   SPEECH BUBBLES
+   ═══════════════════════════ */
+
+.speech-bubble {
+  background: var(--parchment);
+  color: var(--ink-black);
+  border: 3px solid var(--ink-black);
+  border-radius: 20px;
+  padding: 1rem 1.5rem;
+  position: relative;
+  box-shadow: var(--shadow-comic-sm);
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 16px solid var(--parchment);
+  filter: drop-shadow(2px 2px 0px #000);
+}
+
+.speech-bubble-danger {
+  background: #fff0f0;
+  border-color: var(--comic-red);
+}
+
+.speech-bubble-danger::after {
+  border-top-color: #fff0f0;
+}
+
+/* ═══════════════════════════
+   IMPACT TEXT (WHAM, POW)
+   ═══════════════════════════ */
+
+.impact-text {
+  font-family: var(--font-bangers, 'Bangers', cursive);
+  font-size: clamp(3rem, 10vw, 8rem);
+  letter-spacing: 0.08em;
+  -webkit-text-stroke: 3px #000;
+  paint-order: stroke fill;
+  animation: impact-shake 0.15s ease-in-out 3;
+}
+
+@keyframes impact-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-4px, 2px) rotate(-1deg); }
+  75% { transform: translate(4px, -2px) rotate(1deg); }
+}
+
+/* ═══════════════════════════
+   BUTTONS
+   ═══════════════════════════ */
+
+.btn-comic {
+  font-family: var(--font-bangers, 'Bangers', cursive);
+  letter-spacing: 0.05em;
+  border: 3px solid #000;
+  box-shadow: var(--shadow-comic);
+  transition: all 0.15s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.btn-comic:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000;
+}
+
+.btn-comic:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #000;
+}
+
+.btn-comic-green {
+  background: var(--comic-green);
+  color: #000;
+}
+
+.btn-comic-green:hover {
+  background: var(--comic-green-glow);
+}
+
+.btn-comic-red {
+  background: var(--comic-red);
+  color: #fff;
+}
+
+.btn-comic-red:hover {
+  background: var(--comic-red-glow);
+}
+
+.btn-comic-ghost {
+  background: var(--panel-mid);
+  color: var(--parchment);
+  border-color: var(--panel-light);
+}
+
+.btn-comic-ghost:hover {
+  background: var(--panel-light);
+  border-color: var(--parchment);
+}
+
+/* ═══════════════════════════
+   INSURANCE CARDS
+   ═══════════════════════════ */
+
+.insurance-card {
+  position: relative;
+  border: 2px solid var(--panel-light);
+  background: var(--panel-mid);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.insurance-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.insurance-card-basic::before {
+  background: var(--text-muted);
+}
+
+.insurance-card-standard::before {
+  background: var(--comic-blue);
+}
+
+.insurance-card-premium::before {
+  background: var(--comic-purple);
+}
+
+.insurance-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border-color: var(--parchment-dark);
+}
+
+.insurance-card-selected {
+  border-color: var(--comic-green) !important;
+  box-shadow: 0 0 20px rgba(6, 214, 160, 0.2), var(--shadow-comic-sm);
+}
+
+/* ═══════════════════════════
+   PROGRESS BARS
+   ═══════════════════════════ */
+
+.progress-bar-track {
+  background: var(--panel-dark);
+  border: 2px solid var(--panel-light);
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  background: linear-gradient(90deg, var(--comic-green), var(--comic-green-glow));
+  box-shadow: 0 0 8px rgba(6, 214, 160, 0.4);
+}
+
+.progress-bar-fill-red {
+  background: linear-gradient(90deg, var(--comic-red), var(--comic-red-glow));
+  box-shadow: 0 0 8px rgba(230, 57, 70, 0.4);
+}
+
+/* ═══════════════════════════
+   ANIMATIONS
+   ═══════════════════════════ */
+
+@keyframes comic-entrance {
+  0% { opacity: 0; transform: scale(0.8) rotate(-2deg); }
+  60% { transform: scale(1.05) rotate(1deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes slide-up-stagger {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zombie-shamble {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(-3deg); }
+  50% { transform: translateY(-2px) rotate(0deg); }
+  75% { transform: translateY(-5px) rotate(3deg); }
+}
+
+@keyframes pulse-glow-green {
+  0%, 100% { box-shadow: 0 0 5px rgba(6, 214, 160, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(6, 214, 160, 0.4); }
+}
+
+@keyframes pulse-glow-red {
+  0%, 100% { box-shadow: 0 0 5px rgba(230, 57, 70, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(230, 57, 70, 0.4); }
+}
+
+@keyframes flicker {
+  0%, 97%, 100% { opacity: 1; }
+  98% { opacity: 0.7; }
+  99% { opacity: 0.9; }
+}
+
+@keyframes ink-drip {
+  0% { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 0% 0); }
+}
+
+@keyframes stamp-in {
+  0% { transform: scale(3) rotate(-20deg); opacity: 0; }
+  50% { transform: scale(1.1) rotate(-12deg); opacity: 0.8; }
+  100% { transform: scale(1) rotate(-12deg); opacity: 1; }
+}
+
+.animate-comic-entrance {
+  animation: comic-entrance 0.4s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up-stagger 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-zombie-shamble {
+  animation: zombie-shamble 0.8s ease-in-out infinite;
+}
+
+.animate-pulse-green {
+  animation: pulse-glow-green 2s ease-in-out infinite;
+}
+
+.animate-pulse-red {
+  animation: pulse-glow-red 2s ease-in-out infinite;
+}
+
+.animate-flicker {
+  animation: flicker 3s linear infinite;
+}
+
+.animate-stamp {
+  animation: stamp-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Stagger delays */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+/* ═══════════════════════════
+   DECORATIVE ELEMENTS
+   ═══════════════════════════ */
+
+/* Ink splatter corners */
+.ink-corner::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 40px;
+  height: 40px;
+  background: var(--comic-red);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  z-index: 10;
+}
+
+/* Danger stripes */
+.danger-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(230, 57, 70, 0.15) 8px,
+    rgba(230, 57, 70, 0.15) 16px
+  );
+}
+
+/* Scan lines for dramatic screens */
+.scan-lines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Noise texture */
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ═══════════════════════════
+   FORM ELEMENTS
+   ═══════════════════════════ */
+
+.input-comic {
+  background: var(--panel-dark);
+  border: 2px solid var(--panel-light);
+  color: var(--parchment);
+  font-family: var(--font-bitter, 'Bitter', serif);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-comic::placeholder {
+  color: var(--text-muted);
+}
+
+.input-comic:focus {
+  outline: none;
+  border-color: var(--comic-green);
+  box-shadow: 0 0 12px rgba(6, 214, 160, 0.2);
+}
+
+/* ═══════════════════════════
+   SCROLLBAR
+   ═══════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--panel-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--panel-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ═══════════════════════════
+   MODAL BACKDROP
+   ═══════════════════════════ */
+
+.modal-backdrop {
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(4px);
+}
+
+/* ═══════════════════════════
+   TIER BADGES
+   ═══════════════════════════ */
+
+.tier-badge {
+  font-family: var(--font-bangers, 'Bangers', cursive);
+  letter-spacing: 0.08em;
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.tier-basic {
+  background: rgba(107, 101, 144, 0.3);
+  color: var(--text-secondary);
+  border: 1px solid var(--text-muted);
+}
+
+.tier-standard {
+  background: rgba(76, 201, 240, 0.15);
+  color: var(--comic-blue);
+  border: 1px solid rgba(76, 201, 240, 0.4);
+}
+
+.tier-premium {
+  background: rgba(155, 93, 229, 0.15);
+  color: var(--comic-purple);
+  border: 1px solid rgba(155, 93, 229, 0.4);
+}
+
+/* ═══════════════════════════
+   STAT DISPLAYS
+   ═══════════════════════════ */
+
+.stat-money {
+  color: var(--comic-green);
+  text-shadow: 0 0 8px rgba(6, 214, 160, 0.3);
+}
+
+.stat-health {
+  color: var(--comic-red);
+  text-shadow: 0 0 8px rgba(230, 57, 70, 0.3);
+}
+
+.stat-wave {
+  color: var(--comic-yellow);
+  text-shadow: 0 0 8px rgba(255, 209, 102, 0.3);
+}
+
+/* ═══════════════════════════
+   RESPONSIVE ADJUSTMENTS
+   ═══════════════════════════ */
+
+@media (max-width: 768px) {
+  .comic-title {
+    -webkit-text-stroke: 2px #000;
+  }
+
+  .comic-panel {
+    border-width: 2px;
+    box-shadow: var(--shadow-comic-sm);
+  }
+
+  .btn-comic {
+    border-width: 2px;
+    box-shadow: var(--shadow-comic-sm);
+  }
+
+  .impact-text {
+    -webkit-text-stroke: 2px #000;
+  }
 }
